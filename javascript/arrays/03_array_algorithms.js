@@ -11,19 +11,36 @@ console.log('\n1. Array Rotation:');
 // Rotate array right by k positions
 function rotateRight(arr, k) {
     k = k % arr.length; // Handle cases where k > arr.length
-    return [...arr.slice(-k), ...arr.slice(0, -k)];
+    return [...arr.slice(-k), ...arr.slice(0, -k)];// explanation: arr.slice(-k) takes the last k elements of the array and arr.slice(0, -k) takes the rest of the array. Then it concatenates them.
 }
 
 // Rotate array left by k positions
 function rotateLeft(arr, k) {
     k = k % arr.length; // Handle cases where k > arr.length
-    return [...arr.slice(k), ...arr.slice(0, k)];
+    return [...arr.slice(k), ...arr.slice(0, k)];// explanation: arr.slice(k) takes the first k elements of the array and arr.slice(0, k) takes the rest of the array. Then it concatenates them.
+}
+
+// Rotate using reverse
+function rotateRightUsingReverse(arr, k) {
+    k = k % arr.length; // Handle cases where k > arr.length
+    reverse(arr, 0, arr.length - 1);
+    reverse(arr, 0, k - 1);
+    reverse(arr, k, arr.length - 1);
+}
+
+function reverse(arr, start, end) {
+    while (start < end) {
+        [arr[start], arr[end]] = [arr[end], arr[start]];// explanation: this swaps the elements at the start and end indices.
+        start++;
+        end--;
+    }
 }
 
 const arr = [1, 2, 3, 4, 5];
 console.log('Original array:', arr);
 console.log('Rotated right by 2:', rotateRight(arr, 2));
 console.log('Rotated left by 2:', rotateLeft(arr, 2));
+console.log('Rotated right by 2 using reverse:', rotateRightUsingReverse(arr, 2));
 
 // 2. Finding Maximum and Minimum
 console.log('\n2. Finding Maximum and Minimum:');
