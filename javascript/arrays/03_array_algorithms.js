@@ -106,17 +106,53 @@ console.log('Union:', union(arr1, arr2));
 console.log('\n5. Subarray Problems:');
 
 // Find maximum sum of subarray (Kadane's Algorithm)
+// explanation: Kadane's Algorithm is a dynamic programming algorithm that 
+// finds the maximum sum of a contiguous subarray in an array.
 function maxSubarraySum(arr) {
-    let maxSoFar = arr[0];
-    let maxEndingHere = arr[0];
+    let maxSoFar = arr[0];// explanation: this is the maximum sum of the subarray so far.
+    let maxEndingHere = arr[0];// explanation: this is the maximum sum of the subarray ending at the current index.
 
     for (let i = 1; i < arr.length; i++) {
+        // explanation: this is the maximum of the current element or the sum of the current element 
+        // and the maximum sum of the subarray ending at the previous index.
         maxEndingHere = Math.max(arr[i], maxEndingHere + arr[i]);
+        // explanation: this is the maximum of the maximum sum of the subarray so far 
+        // or the maximum sum of the subarray ending at the current index.
         maxSoFar = Math.max(maxSoFar, maxEndingHere);
     }
 
     return maxSoFar;
 }
+
+// Find maximum sum of subarray with subarray. 
+// explanation: this is a modified version of Kadane's Algorithm that 
+// finds the maximum sum of a contiguous subarray and the subarray itself.
+function modifiedKadaneWithSubarray(arr) {
+    let maxSoFar = arr[0];
+    let currentMax = arr[0];
+    let start = 0, end = 0, tempStart = 0;
+
+    for (let i = 1; i < arr.length; i++) {
+        if (arr[i] > currentMax + arr[i]) {
+            currentMax = arr[i];
+            tempStart = i;
+        } else {
+            currentMax += arr[i];
+        }
+
+        if (currentMax > maxSoFar) {
+            maxSoFar = currentMax;
+            start = tempStart;
+            end = i;
+        }
+    }
+
+    return {
+        maxSum: maxSoFar,
+        subarray: arr.slice(start, end + 1)
+    };
+}
+
 
 console.log('Maximum subarray sum:', maxSubarraySum([-2, 1, -3, 4, -1, 2, 1, -5, 4]));
 
