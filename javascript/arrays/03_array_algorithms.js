@@ -223,6 +223,30 @@ function rearrangeAlternating(arr) {
 
 console.log('Alternating positive and negative:', rearrangeAlternating([-1, 2, -3, 4, 5, 6, -7, 8, 9]));
 
+// 8. Count the number of elements in the array which have atleast one element greater than itself
+console.log('\n8. Count the number of elements in the array which have atleast one element greater than itself:');
+
+function countElementsWithAtLeastOneGreaterElement(arr) {
+    let max = Math.max(...arr);
+    return arr.filter(x => x !== max).length;
+}
+
+function countElementsWithAtLeastOneGreaterElementInSinglePass(arr) {
+    let max = arr[0];
+    let count = 0;
+    for (let i = 0; i < arr.length; i++) {
+        if (arr[i] > max) {
+            max = arr[i];
+            count = 1;
+        } else if (arr[i] === max) {
+            count++;
+        }
+    }
+    return arr.length - count;
+}
+
+console.log('Count of elements with at least one greater element:', countElementsWithAtLeastOneGreaterElement([2, 5, 1, 4, 0, 8, 0, 8, 1, 3, 8, 0, 9]));
+
 /**
  * Time Complexity Analysis:
  * 
